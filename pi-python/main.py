@@ -89,7 +89,7 @@ def printer_status():
     ExpressionAttributeValues={
       ':r': { 'BOOL': True },
       ':p': { 'BOOL': has_paper },
-      ':u': { 'N': str(round(time.time() * 1000)) }
+      ':u': { 'N': datetime.datetime.now().isoformat() }
     }
   )
 
