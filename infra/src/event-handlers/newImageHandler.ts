@@ -1,10 +1,10 @@
-import { APIGatewayProxyResultV2, S3Event } from 'aws-lambda';
 import createResponse from '../utils/response';
 import { processS3Event } from '../utils/event-utils';
 import log from '../utils/log';
 import { dynamoDocClient } from '../utils/dynamoDbClient';
 import { deleteById } from '../utils/s3';
 import { processImageAndBase64 } from '../utils/image';
+import { APIGatewayProxyResultV2, S3Event } from 'aws-lambda';
 
 const { TABLE_NAME = '' } = process.env;
 

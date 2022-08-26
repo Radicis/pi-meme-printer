@@ -5,6 +5,7 @@ import boto3
 import io
 from Adafruit_Thermal import *
 from PIL import Image
+import datetime
 import cv2
 
 CAMERA_BUCKET = 'meme-camera-pics'
