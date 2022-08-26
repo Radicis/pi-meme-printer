@@ -2,15 +2,9 @@ import log from './log';
 import { APIGatewayProxyEventV2, S3Event } from 'aws-lambda';
 
 export function processEvent(event: APIGatewayProxyEventV2) {
-  const {
-    requestContext,
-    body,
-    queryStringParameters,
-    pathParameters,
-    headers
-  } = event;
-  const { requestId } = requestContext;
-  log.info({ requestId, headers }, `Event received`);
+  const { body, queryStringParameters, pathParameters, headers } = event;
+
+  log.info(`Event received`);
 
   // "X-Forwarded-For": "78.18.219.157",
   const userIP = headers['X-Forwarded-For'] || 'unknown';

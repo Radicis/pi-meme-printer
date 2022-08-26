@@ -2,7 +2,7 @@
 !jest.config.js
 *.d.ts
 node_modules
-.idea/
+.idea
 
 # CDK asset staging directory
 .cdk.staging
@@ -144,3 +144,4 @@ dist
 /back-end/.env
 /infra/volume/
 /pi-python/venv/
+/infra/cdk.context.json

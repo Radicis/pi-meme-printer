@@ -38,7 +38,7 @@ async function create({
     id: key,
     name,
     text: message ? message.substring(0, 200) : '', // limit to 200 chars
-    createdAt: new Date().toUTCString(),
+    createdAt: new Date().toISOString(),
     userIP,
     userAgent
   };

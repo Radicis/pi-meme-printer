@@ -40,6 +40,6 @@ async function cleanup() {
 
 export async function main(): Promise<APIGatewayProxyResultV2> {
   return createResponse(cleanup(), {
-    successCode: 201
+    successCode: 204
   });
 }

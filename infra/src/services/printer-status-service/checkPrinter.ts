@@ -5,7 +5,7 @@ import log from '../../utils/log';
 
 const { TABLE_NAME = '' } = process.env;
 
-const TIMEOUT = 30000;
+const TIMEOUT_MS = 30000; // 30s
 
 async function checkPrinter() {
   const item = (
@@ -22,20 +22,20 @@ async function checkPrinter() {
     return;
   }
 
-  log.info(
-    `Checking last log time with ${Date.now()} and ${item.updatedAt}  ${
-      Date.now() - item.updatedAt
-    } with timeout: ${TIMEOUT}`
-  );
+  const currentDateTime = new Date().toISOString();
 
   const updateParams = {
     TableName: TABLE_NAME,
     Key: { id: 'monitor' },
     UpdateExpression: 'SET #printer = :r, #paper = :p, #updatedAt = :u',
     ExpressionAttributeValues: {
-      ':r': Boolean(Date.now() - item.updatedAt < TIMEOUT),
+      ':r': Boolean(
+        new Date(currentDateTime).getMilliseconds() -
+          new Date(item.updatedAt).getMilliseconds() <
+          TIMEOUT_MS
+      ),
       ':p': item.paper,
-      ':u': Date.now()
+      ':u': currentDateTime
     },
     ExpressionAttributeNames: {
       '#printer': 'printer',
@@ -50,6 +50,6 @@ async function checkPrinter() {
 
 export async function main(): Promise<APIGatewayProxyResultV2> {
   return createResponse(checkPrinter(), {
-    successCode: 201
+    successCode: 204
   });
 }

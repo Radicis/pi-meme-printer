@@ -3,6 +3,8 @@ import createResponse from '../../utils/response';
 import { processEvent } from '../../utils/event-utils';
 import { dynamoDocClient } from '../../utils/dynamoDbClient';
 import { QueryInput } from 'aws-sdk/clients/dynamodb';
+import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client';
+import AttributeValue = DocumentClient.AttributeValue;
 
 const { TABLE_NAME = '' } = process.env;
 
@@ -27,10 +29,8 @@ async function list({
   };
   if (lastEvaluatedId && lastEvaluatedCreatedAt) {
     queryParams.ExclusiveStartKey = {
-      // @ts-ignore
-      id: lastEvaluatedId,
-      // @ts-ignore
-      createdAt: lastEvaluatedCreatedAt
+      id: lastEvaluatedId as AttributeValue,
+      createdAt: lastEvaluatedCreatedAt as AttributeValue
     };
   }
   const {
